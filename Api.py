@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-items_list=[
+items=[
     {'id': 1, 'name': 'Antique Wall Clock', 'artist': 'George Orwell'},
     {'id': 2, 'name': 'Van gogh Painting', 'artist': 'Van Gogh'},
     {'id': 3, 'name': 'The Great Gatsby item', 'artist': 'F. Scott Fitzgerald'},
@@ -12,7 +12,7 @@ items_list=[
 
 @app.route('/items', methods=['GET'])
 def get_items():
-    return jsonify(items_list)
+    return jsonify(items)
 
 @app.route('/items/getting_item/<int:id>', methods=['GET'])
 def get_item_id(id):
@@ -21,12 +21,12 @@ def get_item_id(id):
         return jsonify(item)
     return jsonify({'message':'Item not found'}), 404
 
-@app.route('/items/<int:id>',methods=['POST'])
+@app.route('/items',methods=['POST'])
 def add_item():
     new_item={
         'id':items[-1]['id'] + 1 if items else 1,
         'name': request.json['name'],
-        'artist': request.json['artsit']
+        'artist': request.json['artist']
     }
     items.append(new_item)
     return jsonify(new_item), 201
@@ -47,4 +47,4 @@ def delete_item(id):
     return jsonify({'message': 'item deleted'}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='localhost',port=50001,debug=True)
