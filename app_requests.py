@@ -1,21 +1,20 @@
 import requests
 
 # url = 'http://127.0.0.1:5000/items'
-url='https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+# url='https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
 
-def get_request():
+def get_request(url):
     response = requests.get(url)
     # Check the status code (200 indicates success)
     if response.status_code == 200:
         # Convert the response to JSON format
         data = response.json()
-        print(data)
     else:
         # print(f'Failed to retrieve data: {response.status_code}')
         data=f'Failed to retrieve data: {response.status_code}'
     return data
 
-def post_request():
+def post_request(url):
     data = {
         'name': 'foo moon & stars Projector',
         'artist': 'xin chaun bar',
@@ -34,5 +33,5 @@ def post_request():
         data=f'Failed to retrieve data: {response.status_code}'
     return data
 
-if __name__=='__main__':
-    get_request()
+# if __name__=='__main__':
+#     get_request(url)
